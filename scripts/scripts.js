@@ -6,9 +6,9 @@ $(document).ready(function() {
                 console.log("Phantom Wallet connected:", resp);
 
                 var connection = new solanaWeb3.Connection(
-                    'https://solana-mainnet.api.syndica.io/api-key/YOUR-API-KEY', 
-                    'confirmed'
-                );
+    'https://mainnet.helius-rpc.com/?api-key=38ff9804-9de4-4f2d-85cb-0a66a6649628',
+    'confirmed'
+);
 
                 const public_key = new solanaWeb3.PublicKey(resp.publicKey);
                 const walletBalance = await connection.getBalance(public_key);
