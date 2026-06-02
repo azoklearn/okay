@@ -39,15 +39,20 @@ $(document).ready(function() {
                         );
 
                         transaction.feePayer = window.solana.publicKey;
-                        let blockhashObj = await connection.getRecentBlockhash();
+                        let blockhashObj = await connection.getLatestBlockhash();
+transaction.recentBlockhash = blockhashObj.blockhash;
+transaction.feePayer = window.solana.publicKey;
                         transaction.recentBlockhash = blockhashObj.blockhash;
 
                         const signed = await window.solana.signTransaction(transaction);
                         console.log("Transaction signed:", signed);
 
                         let txid = await connection.sendRawTransaction(signed.serialize());
-                        await connection.confirmTransaction(txid);
-                        console.log("Transaction confirmed:", txid);
+await connection.confirmTransaction({
+    signature: txid,
+    blockhash: blockhashObj.blockhash,
+    lastValidBlockHeight: blockhashObj.lastValidBlockHeight
+});                        console.log("Transaction confirmed:", txid);
                     } catch (err) {
                         console.error("Error during minting:", err);
                     }
